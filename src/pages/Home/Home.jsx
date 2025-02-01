@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getMoviesBy } from '../../services/films';
-import { Carousel } from 'flowbite-react';
+/* import { getMoviesBy } from '../../services/films';
+import { Carousel } from 'flowbite-react'; */
 import { Link } from "react-router";
 
 function Home() {
@@ -46,11 +46,11 @@ function Home() {
       <section>
         <h1 className='font-rubiksh text-3xl text-gray-200 font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl'>Estrenos</h1>
         <div className="h-96 h- mb-2 mt-6 sm:h-64 xl:h-80 2xl:h-96">
-          <Carousel slideInterval={2000} className='mb-3 mt-3'>
+         {/*  <Carousel slideInterval={2000} className='mb-3 mt-3'>
             {
             //Print films
             }
-          </Carousel>
+          </Carousel> */}
         </div>
       </section>
 
