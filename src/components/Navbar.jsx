@@ -1,26 +1,31 @@
 import React from "react";
-
-const links = [
-  { name: "Home", path: "/" },
-  { name: "videojuegos", path: "/films" },
-];
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <>
-  <nav className="bg-[#282828] rounded-md mb-2 flex items-center justify-between p-4">
+    <nav className="bg-[#282828] rounded-md mb-2 flex items-center justify-between p-4">
+      {/* Logo */}
+      <img src="logo.png" className="h-12 w-12" alt="Logo" />
 
-  <img src="logo.png" className="h-12 w-12" alt="Logo" />
+      {/* Links de navegación */}
+      <div className="flex items-center space-x-6">
+        <NavLink
+          to="/" className={({ isActive }) => `text-2xl font-semibold ${isActive ? "text-gray-400" : "text-gray-200"} hover:text-gray-400 transition`
+          }>
+          Home
+        </NavLink>
 
-  <div className="flex items-center space-x-3 rtl:space-x-reverse">
-    <span className="self-center text-2xl font-semibold text-gray-200 whitespace-nowrap">Home</span>
-    <span  className="self-center text-2xl font-semibold text-gray-200 whitespace-nowrap">VideoGames</span>
-  </div>
-</nav>
-
-
-    </>
+        <NavLink
+          to="/Games" className={({ isActive }) =>`text-2xl font-semibold ${isActive ? "text-gray-400" : "text-gray-200"} hover:text-gray-400 transition`
+          }>
+          VideoGames
+        </NavLink>
+        
+      </div>
+    </nav>
   );
 };
 
 export default Navbar;
+
+
