@@ -19,7 +19,7 @@ const Navbar = () => {
         <NavLink
           to="/Games" className={({ isActive }) =>`text-2xl font-semibold ${isActive ? "text-gray-400" : "text-gray-200"} hover:text-gray-400 transition`
           }>
-          VideoGames
+          VideoJuegos
         </NavLink>
         
       </div>

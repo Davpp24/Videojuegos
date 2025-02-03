@@ -9,8 +9,8 @@ import "./index.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
-import Games from "./pages/videogames/Games";
-import GamesDetails, { filmDetailsLoader } from "./pages/GamesDetails/GamesDetails";
+/* import Games from "./pages/videogames/Games";
+import GamesDetails, { filmDetailsLoader } from "./pages/GamesDetails/GamesDetails"; */
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function AppLayout() {
@@ -29,8 +29,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/Games", element: <Games /> },
-      { path: "/gamesDetails/:id", element: <GamesDetails />, loader: filmDetailsLoader },
+     /*  { path: "/Games", element: <Games /> },
+      { path: "/gamesDetails/:id", element: <GamesDetails />, loader: filmDetailsLoader }, */
     ],
   },
 ]);
