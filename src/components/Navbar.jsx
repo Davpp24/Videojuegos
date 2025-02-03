@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="bg-[#282828] rounded-md mb-2 flex items-center justify-between p-4">
       {/* Logo */}
       <img src="logo.png" className="h-12 w-12" alt="Logo" />
-      <span className="self-center text-2xl font-semibold text-gray-200 whitespace-nowrap">Cinema Project</span>
+      <span className="self-center text-4xl font-semibold text-gray-200 whitespace-nowrap">Videojuegos Project</span>
 
       {/* Links de navegación */}
       <div className="flex items-center space-x-6">
