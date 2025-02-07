@@ -6,10 +6,10 @@ const Navbar = () => {
     <nav className="bg-gradient-to-r from-gray-900 to-gray-800 mb-4 shadow-lg">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <div className="flex items-center justify-between h-20">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 ml-0"> {/* Aquí se agrega ml-0 para pegar el logo */}
             <img
               src="/logo.png"
-              className="h-16 w-16 transform hover:scale-110 transition-transform duration-300"
+              className="h-16 w-16 rounded-full transform hover:scale-110 transition-transform duration-300"
               alt="Logo"
             />
           </div>
@@ -42,5 +42,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-
-

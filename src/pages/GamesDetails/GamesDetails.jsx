@@ -82,6 +82,20 @@ export default function GamesDetails() {
                   ))}
                 </ul>
               </div>
+              {/* Mostrar plataformas */}
+              <div>
+                <p className="font-semibold text-yellow-400">Plataformas:</p>
+                <ul className="flex flex-wrap gap-2 mt-2">
+                  {game.platforms.map((platform) => (
+                    <li
+                      key={platform.platform.id}
+                      className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium"
+                    >
+                      {platform.platform.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
