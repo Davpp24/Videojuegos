@@ -55,4 +55,4 @@ function GameDetails() {
   )
 }
 
-export default GameDetails;
+export default GameDetails;
