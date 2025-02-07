@@ -1,60 +1,225 @@
-import { useState } from "react";
-import { Link } from "react-router";
+"use client"
+
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [films, setFilms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
+  const [games, setGames] = useState([])
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await fetch("https://api.rawg.io/api/games?key=e621543c33ee44e48e7b82cfdc83fb23")
+        const data = await response.json()
+        setGames(data.results)
+        setIsLoading(false)
+      } catch (error) {
+        console.error("Error al obtener los videojuegos:", error)
+        setIsLoading(false)
+      }
+    }
+
+    fetchGames()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <div className="animate-pulse text-cyan-500 text-2xl">Cargando...</div>
+      </div>
+    )
+  }
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    className: "game-slider",
+    customPaging: (i) => <div className="custom-dot"></div>,
+    prevArrow: (
+      <button className="slick-prev">
+        <span className="sr-only">Previous</span>
+        &#60;
+      </button>
+    ),
+    nextArrow: (
+      <button className="slick-next">
+        <span className="sr-only">Next</span>
+        &#62;
+      </button>
+    ),
+  }
 
   return (
-    <>
-      <section
-        className="w-full mb-6 py-12 md:py-20 lg:py-28 xl:py-36 flex items-center justify-center"
-        style={{
-          backgroundImage: "url('https://wallpapercave.com/wp/wp8391073.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="container px-4 md:px-6 flex flex-col items-center text-center">
-          <div className="space-y-2">
-            <h1 className="text-3xl text-white font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <section className="hero-section relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 to-blue-900/80 mix-blend-multiply" />
+          <video
+            autoPlay
+            loop
+            muted
+            className="w-full h-full object-cover"
+            poster="https://wallpapercave.com/wp/wp8391073.jpg"
+          >
+            <source
+              src="https://assets.mixkit.co/videos/preview/mixkit-gaming-world-rotates-1393-large.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+
+        <div className="container relative z-10 px-4 md:px-6 text-center">
+          <div className="space-y-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 filter drop-shadow-lg">
               Bienvenido a <span className="text-yellow-400">Videojuego Project</span>
             </h1>
-            <p className="mx-auto max-w-[700px] text-gray-200 md:text-xl dark:text-gray-300">
+            <p className="text-xl md:text-2xl text-cyan-200 max-w-2xl mx-auto leading-relaxed">
               La mejor página de Videojuegos
             </p>
-          </div>
-          <div className="space-x-4 mt-4">
-            <Link
-              className="inline-flex h-9 items-center justify-center rounded-md bg-yellow-400 px-4 py-2 text-sm font-medium text-black shadow transition-colors hover:bg-yellow-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50"
-              to="/Games"
-            >
-              Infórmese sobre cualquier Videojuego
-            </Link>
+            <div className="pt-4">
+              <Link
+                className="inline-flex items-center px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50"
+                to="/Games"
+              >
+                Explorar Juegos
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="text-center">
-        <h1 className="font-rubiksh text-3xl text-yellow-400 font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
-          Nuevos Videojuegos
-        </h1>
-        <div className="h-96 mb-2 mt-6 sm:h-64 xl:h-80 2xl:h-96">
-          {/* Aquí puedes insertar tu carrusel */}
-          {/* Ejemplo:
-          <Carousel slideInterval={2000} className="mb-3 mt-3">
-            {films.map((film, index) => (
-              <div key={index} className="text-center">
-                <img src={film.image} alt={film.title} />
-                <p>{film.title}</p>
-              </div>
-            ))}
-          </Carousel> */}
+      <section className="games-section relative py-20">
+        <div className="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+        <div className="container mx-auto px-4">
+          <h2 className="text-center mb-16">
+            <span className="inline-block text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 pb-2">
+              Nuevos Videojuegos
+            </span>
+          </h2>
+
+          <div className="max-w-6xl mx-auto">
+            <Slider {...settings}>
+              {games.map((game, index) => (
+                <div key={index} className="px-4">
+                  <div className="relative group">
+                    <div className="relative aspect-video overflow-hidden rounded-lg">
+                      <img
+                        src={game.background_image || "/placeholder.svg"}
+                        alt={game.name}
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-300">
+                      <h3 className="text-2xl font-bold text-white text-center mb-2">{game.name}</h3>
+                      <div className="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {game.genres?.slice(0, 3).map((genre, idx) => (
+                          <span key={idx} className="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm">
+                            {genre.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
       </section>
-    </>
-  );
+
+      <style jsx global>{`
+        .hero-section {
+          position: relative;
+          background-color: #0a0a0a;
+        }
+
+        .games-section {
+          background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+        }
+        
+        .game-slider .slick-slide {
+          padding: 0 8px;
+        }
+
+        .game-slider .slick-dots {
+          bottom: -40px;
+        }
+
+        .game-slider .slick-dots li {
+          margin: 0 6px;
+        }
+
+        .game-slider .custom-dot {
+          width: 12px;
+          height: 12px;
+          background: rgba(6, 182, 212, 0.2);
+          border: 2px solid rgba(6, 182, 212, 0.5);
+          border-radius: 50%;
+          transition: all 0.3s ease;
+        }
+
+        .game-slider .slick-active .custom-dot {
+          background: rgb(6, 182, 212);
+          transform: scale(1.2);
+          box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+
+        .game-slider .slick-prev,
+        .game-slider .slick-next {
+          width: 50px;
+          height: 50px;
+          background: rgba(6, 182, 212, 0.2);
+          backdrop-filter: blur(8px);
+          border: 2px solid rgba(6, 182, 212, 0.5);
+          border-radius: 50%;
+          color: rgb(6, 182, 212);
+          z-index: 1;
+          transition: all 0.3s ease;
+        }
+
+        .game-slider .slick-prev:hover,
+        .game-slider .slick-next:hover {
+          background: rgba(6, 182, 212, 0.3);
+          border-color: rgb(6, 182, 212);
+          box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+          transform: scale(1.1);
+        }
+
+        .game-slider .slick-prev {
+          left: -70px;
+        }
+
+        .game-slider .slick-next {
+          right: -70px;
+        }
+
+        @media (max-width: 768px) {
+          .game-slider .slick-prev {
+            left: 10px;
+          }
+          
+          .game-slider .slick-next {
+            right: 10px;
+          }
+        }
+      `}</style>
+    </div>
+  )
 }
 
-export default Home;
+export default Home
+
