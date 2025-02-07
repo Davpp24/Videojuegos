@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const API_KEY = "e621543c33ee44e48e7b82cfdc83fb23";
 
-export async function loader({params}) {
-  const id = params.id;
-  return {id};
+export async function loader({ params }) {
+  return { id: params.id };
 }
 
-function GameDetails() {
+export default function GamesDetails() {
   const { id } = useLoaderData();
-  const [game, setGame] = useState({});
+  const [game, setGame] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchGameDetails = async () => {
@@ -30,29 +28,65 @@ function GameDetails() {
     };
 
     fetchGameDetails();
-  }, []); 
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900">
+        <p className="text-yellow-400 text-2xl font-semibold animate-pulse">Cargando detalles...</p>
+      </div>
+    );
+  }
+
+  if (!game) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900">
+        <p className="text-red-500 text-2xl font-semibold">Error al cargar el juego.</p>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <section className="p-5">
-        {/* Aquí debes asegurarte de que `games` y `game` están definidos y mapeados correctamente */}
-        {games.map((game) => (
-          <Link to={`/gamesDetails/${game.id}`} key={game.id}>
-            {/* Navega a los detalles del juego */}
-            <div className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-              <img
-                src={game.background_image || "/placeholder.svg"}
-                alt={game.name}
-                className="w-full h-40 object-cover rounded-lg"
-              />
-              <h3 className="text-lg font-semibold mt-2">{game.name}</h3>
-              <p className="text-gray-600">⭐ {game.rating}</p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
+      <div className="container mx-auto p-6">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          {/* Imagen del juego */}
+          <img
+            src={game.background_image || "/placeholder.svg"}
+            alt={game.name}
+            className="rounded-xl shadow-lg w-full lg:w-1/3 max-h-[500px] object-cover"
+          />
+          {/* Información del juego */}
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold text-yellow-400 mb-4">{game.name}</h1>
+            <p className="text-lg leading-relaxed text-gray-300 mb-6">{game.description_raw}</p>
+
+            <div className="space-y-4">
+              <p>
+                <span className="font-semibold text-yellow-400">Fecha de lanzamiento:</span>{" "}
+                {game.released || "N/A"}
+              </p>
+              <p>
+                <span className="font-semibold text-yellow-400">Rating:</span> ⭐ {game.rating}
+              </p>
+              <div>
+                <p className="font-semibold text-yellow-400">Géneros:</p>
+                <ul className="flex flex-wrap gap-2 mt-2">
+                  {game.genres.map((genre) => (
+                    <li
+                      key={genre.id}
+                      className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium"
+                    >
+                      {genre.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </Link>
-        ))}
-      </section>
-    </>
-  )
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default GameDetails;
