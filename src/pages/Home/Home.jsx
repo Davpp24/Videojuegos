@@ -29,7 +29,7 @@ function Home() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <div className="animate-pulse text-cyan-500 text-2xl">Cargando...</div>
+        <div className="animate-pulse text-cyan-500 text-2xl">Cargando los mejores juegos del momento...</div>
       </div>
     )
   }
@@ -84,7 +84,7 @@ function Home() {
               Bienvenido a <span className="text-yellow-400">Videojuego Project</span>
             </h1>
             <p className="text-xl md:text-2xl text-cyan-200 max-w-2xl mx-auto leading-relaxed">
-              La mejor página de Videojuegos
+              Explora un universo de aventuras, acción y estrategia con los títulos más esperados y emocionantes de la industria del gaming.
             </p>
             <div className="pt-4">
               <Link
@@ -102,11 +102,10 @@ function Home() {
       </section>
 
       <section className="games-section relative py-20">
-        <div className="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
         <div className="container mx-auto px-4">
           <h2 className="text-center mb-16">
             <span className="inline-block text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 pb-2">
-              Nuevos Videojuegos
+              Últimos Lanzamientos
             </span>
           </h2>
 
@@ -140,83 +139,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <style jsx global>{`
-        .hero-section {
-          position: relative;
-          background-color: #0a0a0a;
-        }
-
-        .games-section {
-          background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
-        }
-        
-        .game-slider .slick-slide {
-          padding: 0 8px;
-        }
-
-        .game-slider .slick-dots {
-          bottom: -40px;
-        }
-
-        .game-slider .slick-dots li {
-          margin: 0 6px;
-        }
-
-        .game-slider .custom-dot {
-          width: 12px;
-          height: 12px;
-          background: rgba(6, 182, 212, 0.2);
-          border: 2px solid rgba(6, 182, 212, 0.5);
-          border-radius: 50%;
-          transition: all 0.3s ease;
-        }
-
-        .game-slider .slick-active .custom-dot {
-          background: rgb(6, 182, 212);
-          transform: scale(1.2);
-          box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
-        }
-
-        .game-slider .slick-prev,
-        .game-slider .slick-next {
-          width: 50px;
-          height: 50px;
-          background: rgba(6, 182, 212, 0.2);
-          backdrop-filter: blur(8px);
-          border: 2px solid rgba(6, 182, 212, 0.5);
-          border-radius: 50%;
-          color: rgb(6, 182, 212);
-          z-index: 1;
-          transition: all 0.3s ease;
-        }
-
-        .game-slider .slick-prev:hover,
-        .game-slider .slick-next:hover {
-          background: rgba(6, 182, 212, 0.3);
-          border-color: rgb(6, 182, 212);
-          box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
-          transform: scale(1.1);
-        }
-
-        .game-slider .slick-prev {
-          left: -70px;
-        }
-
-        .game-slider .slick-next {
-          right: -70px;
-        }
-
-        @media (max-width: 768px) {
-          .game-slider .slick-prev {
-            left: 10px;
-          }
-          
-          .game-slider .slick-next {
-            right: 10px;
-          }
-        }
-      `}</style>
     </div>
   )
 }
