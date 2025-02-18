@@ -75,7 +75,7 @@ export default function GamesDetails() {
                   {game.genres.map((genre) => (
                     <li
                       key={genre.id}
-                      className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium"
+                      className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-gray-600 hover:text-white transition-colors duration-200"
                     >
                       {genre.name}
                     </li>
@@ -89,13 +89,30 @@ export default function GamesDetails() {
                   {game.platforms.map((platform) => (
                     <li
                       key={platform.platform.id}
-                      className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium"
+                      className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-gray-600 hover:text-white transition-colors duration-200"
                     >
                       {platform.platform.name}
                     </li>
                   ))}
                 </ul>
               </div>
+
+              {/* Mostrar Publishers */}
+              {game.publishers && game.publishers.length > 0 && ( // Verifica si existen publishers
+                <div>
+                  <p className="font-semibold text-yellow-400">Publishers:</p>
+                  <ul className="flex flex-wrap gap-2 mt-2">
+                    {game.publishers.map((publisher) => (
+                      <li
+                        key={publisher.id} // Asegúrate de tener un ID único para cada publisher
+                        className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-gray-600 hover:text-white transition-colors duration-200"
+                      >
+                        {publisher.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>

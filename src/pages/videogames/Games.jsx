@@ -1,7 +1,8 @@
+// src/components/Games.jsx
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-const API_KEY = "e621543c33ee44e48e7b82cfdc83fb23";
+import { fetchGames } from "../../service/games";
 
 const Games = () => {
   const [games, setGames] = useState([]);
@@ -10,32 +11,16 @@ const Games = () => {
   const [timeoutId, setTimeoutId] = useState(null);
 
   // Función para obtener juegos de la API
-  const fetchGames = async (query = "") => {
-    try {
-      setLoading(true);
-      let url = `https://api.rawg.io/api/games?key=${API_KEY}&page_size=40`;
-      
-      if (query) {
-        url += `&search=${query}`;
-      }
-
-      console.log(`Fetching: ${url}`);
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Error al obtener los juegos");
-
-      const data = await response.json();
-      setGames(data.results || []);
-    } catch (error) {
-      console.error("Error:", error);
-      setGames([]);
-    } finally {
-      setLoading(false);
-    }
+  const loadGames = async (query = "") => {
+    setLoading(true);
+    const data = await fetchGames(query);
+    setGames(data);
+    setLoading(false);
   };
 
   // Cargar juegos al inicio
   useEffect(() => {
-    fetchGames();
+    loadGames();
   }, []);
 
   // Buscar juegos en la API cuando cambia el término de búsqueda
@@ -43,7 +28,7 @@ const Games = () => {
     if (timeoutId) clearTimeout(timeoutId);
 
     const newTimeoutId = setTimeout(() => {
-      fetchGames(searchTerm);
+      loadGames(searchTerm);
     }, 500);
 
     setTimeoutId(newTimeoutId);
@@ -114,3 +99,4 @@ const Games = () => {
 };
 
 export default Games;
+
