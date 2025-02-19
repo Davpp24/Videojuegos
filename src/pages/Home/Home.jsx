@@ -1,29 +1,22 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { fetchGamesHome } from "../../service/games"; // Importa la función desde api.js
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const response = await fetch("https://api.rawg.io/api/games?key=e621543c33ee44e48e7b82cfdc83fb23");
-        const data = await response.json();
-        setGames(data.results);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error al obtener los videojuegos:", error);
-        setIsLoading(false);
-      }
+    const loadGames = async () => {
+      const fetchedGames = await fetchGamesHome(); // Llama a la función externa
+      setGames(fetchedGames);
+      setIsLoading(false);
     };
 
-    fetchGames();
+    loadGames();
   }, []);
 
   if (isLoading) {
@@ -136,5 +129,3 @@ function Home() {
 }
 
 export default Home;
-
-

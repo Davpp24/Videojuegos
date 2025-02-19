@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import Games from "./pages/videogames/Games";
 import GamesDetails, { loader as gameDetailsLoader } from "./pages/GamesDetails/GamesDetails";
+import GenrePage from "./pages/GamesDetails/genero/genero";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function AppLayout() {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/Games", element: <Games /> },
       { path: "/gamesDetails/:id", element: <GamesDetails />, loader: gameDetailsLoader },
+      { path: "/genres/:id", element: <GenrePage /> },
     ],
   },
 ]);
