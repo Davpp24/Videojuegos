@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import  {fetchGamesByGenre} from "../../../service/games";
+import  {fetchGenres} from "../../../service/generos";
 
 export default function GenerPage() {
   const { genreId } = useParams();
@@ -10,12 +10,16 @@ export default function GenerPage() {
   useEffect(() => {
     async function loadGames() {
       setLoading(true);
-      const data = await fetchGamesByGenre(genreId);
+      const data = await fetchGenres(genreId);
       setGames(data);
       setLoading(false);
     }
     loadGames();
   }, [genreId]);
+
+  console.log("Estado de carga:", isLoading);
+  console.log("Juegos obtenidos:", games);
+  
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">

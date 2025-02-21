@@ -42,16 +42,3 @@ export async function fetchGameDetails(gameId) {
     return null;
   }
 }
-
-export async function fetchGamesByGenre(genreId) {
-  try {
-    const response = await fetch(`${BASE_URL}/games?genres=${genreId}&key=${API_KEY}`);
-    if (!response.ok) throw new Error("Error al obtener los juegos del género");
-
-    const data = await response.json();
-    return data.results || [];
-  } catch (error) {
-    console.error("Error:", error);
-    return [];
-  }
-};
