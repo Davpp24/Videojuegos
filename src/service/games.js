@@ -33,7 +33,7 @@ export const fetchGames = async (query = "", page = 1) => {
 
 export async function fetchGameDetails(gameId) {
   try {
-    const response = await fetch(`${BASE_URL}/games/${gameId}?key=${API_KEY}`);
+    const response = await fetch(`${BASE_URL}/games/${gameId}?key=${API_KEY}&lang=es`);
     if (!response.ok) throw new Error("Error al obtener los detalles del juego");
 
     return await response.json();

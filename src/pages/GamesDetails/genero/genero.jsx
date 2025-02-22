@@ -1,36 +1,48 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import  {fetchGenres} from "../../../service/generos";
+"use client"
 
-export default function GenerPage() {
-  const { genreId } = useParams();
-  const [games, setGames] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+import { useEffect, useState } from "react"
+import { useParams, Link } from "react-router-dom"
+import { fetchGenres } from "../../../service/generos"
+
+export default function GenrePage() {
+  const { genreId } = useParams()
+  const [games, setGames] = useState([])
+  const [isLoading, setLoading] = useState(true)
+  const [genreName, setGenreName] = useState("")
 
   useEffect(() => {
     async function loadGames() {
-      setLoading(true);
-      const data = await fetchGenres(genreId);
-      setGames(data);
-      setLoading(false);
+      setLoading(true)
+      const genresData = await fetchGenres()
+      const genreGames = genresData.find((genre) => genre.id === Number.parseInt(genreId))?.games || []
+      const genre = genresData.find((genre) => genre.id === Number.parseInt(genreId))
+      setGenreName(genre?.name || "Género desconocido")
+      setGames(genreGames)
+      setLoading(false)
     }
-    loadGames();
-  }, [genreId]);
-
-  console.log("Estado de carga:", isLoading);
-  console.log("Juegos obtenidos:", games);
-  
+    loadGames()
+  }, [genreId])
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-3xl font-bold text-yellow-400 mb-6">Juegos del Género</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white p-6">
+      <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-8">
+        Juegos del Género: {genreName}
+      </h1>
       {isLoading ? (
-        <p className="text-yellow-400">Cargando juegos...</p>
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-yellow-400"></div>
+        </div>
       ) : (
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {games.map((game) => (
-            <li key={game.id} className="bg-gray-800 p-4 rounded-lg shadow-lg">
-              <Link to={`/games/${game.id}`} className="text-white font-bold text-lg hover:underline">
+            <li
+              key={game.id}
+              className="bg-gray-800 p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105"
+            >
+              <Link
+                to={`/gamesDetails/${game.id}`}
+                className="block text-white font-bold text-lg hover:text-yellow-400 transition duration-300"
+              >
                 {game.name}
               </Link>
             </li>
@@ -38,5 +50,6 @@ export default function GenerPage() {
         </ul>
       )}
     </div>
-  );
+  )
 }
+

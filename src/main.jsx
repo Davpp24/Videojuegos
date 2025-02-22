@@ -50,9 +50,9 @@ const router = createBrowserRouter([
         element: <PublisherDetails />,
       },
       {
-        path: "genero",
+        path: "genres/:genreId",
         element: <GenerPage />,
-      }
+      },
     ],
   },
 ])

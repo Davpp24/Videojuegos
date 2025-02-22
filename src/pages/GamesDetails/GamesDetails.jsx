@@ -6,24 +6,26 @@ import { fetchGameDetails } from "../../service/games"
 
 // Exportación del loader
 export async function loader({ params }) {
-  return { id: params.id }
+  try {
+    const gameDetails = await fetchGameDetails(params.id)
+    if (!gameDetails) {
+      throw new Error("Game not found")
+    }
+    return { gameDetails }
+  } catch (error) {
+    throw new Error("Failed to load game details")
+  }
 }
 
 // Definición del componente con export default
 function GamesDetails() {
-  const { id } = useLoaderData()
-  const [game, setGame] = useState(null)
-  const [isLoading, setLoading] = useState(true)
+  const { gameDetails } = useLoaderData()
+  const [game, setGame] = useState(gameDetails)
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
-    async function loadGame() {
-      setLoading(true)
-      const data = await fetchGameDetails(id)
-      setGame(data)
-      setLoading(false)
-    }
-    loadGame()
-  }, [id])
+    setGame(gameDetails)
+  }, [gameDetails])
 
   if (isLoading) {
     return (
