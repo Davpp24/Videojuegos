@@ -117,9 +117,12 @@ function GamesDetails() {
                 <ul className="flex flex-wrap gap-2 mt-2">
                   {game.tags?.map((tag) => (
                     <li key={tag.id}>
-                      <span className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium">
+                      <Link
+                        to={`/tags/${tag.id}`}
+                        className="px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-sm font-medium hover:bg-yellow-500 hover:text-black transition-colors duration-200"
+                      >
                         {tag.name}
-                      </span>
+                      </Link>
                     </li>
                   ))}
                 </ul>

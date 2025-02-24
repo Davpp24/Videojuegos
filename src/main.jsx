@@ -11,6 +11,7 @@ import Publishers from "./pages/GamesDetails/publisher/Publisher"
 import PublisherDetails from "./pages/GamesDetails/publisher/PublisherDetails"
 import GenerPage from "./pages/GamesDetails/genero/genero"
 import ErrorPage from "./pages/ErrorPage/ErrorPage"
+import TagPage from "./pages/GamesDetails/tag/tag"
 
 function AppLayout() {
   return (
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "genres/:genreId",
         element: <GenerPage />,
+      },
+      {
+        path: "tags/:tagId",
+        element: <TagPage />,
       },
     ],
   },
